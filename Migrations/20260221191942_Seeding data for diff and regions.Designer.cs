@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WalkApp.Data;
 
@@ -11,9 +12,11 @@ using WalkApp.Data;
 namespace WalkApp.Migrations
 {
     [DbContext(typeof(TRWalksDbContext))]
-    partial class TRWalksDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260221191942_Seeding data for diff and regions")]
+    partial class Seedingdatafordiffandregions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
