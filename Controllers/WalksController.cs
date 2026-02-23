@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WalkApp.CustomActionFilters;
 using WalkApp.Models;
 using WalkApp.Models.DTO;
 using WalkApp.Repositories;
@@ -19,11 +20,15 @@ namespace WalkApp.Controllers
             _walkRepo = walkRepo;
         }
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> AddAWalk([FromBody] AddWalkRequestDTO addWalkRequestDTO)
         {
-            var walkDomainModel = _mapper.Map<AddWalkRequestDTO, Walk>(addWalkRequestDTO);
-            await _walkRepo.CreateAsync(walkDomainModel);
-            return Ok(_mapper.Map<Walk, WalkDTO>(walkDomainModel));
+            
+                var walkDomainModel = _mapper.Map<AddWalkRequestDTO, Walk>(addWalkRequestDTO);
+                await _walkRepo.CreateAsync(walkDomainModel);
+                return Ok(_mapper.Map<Walk, WalkDTO>(walkDomainModel));
+            
+
         }
         [HttpGet]
         public async Task<IActionResult> GetAllWalks()

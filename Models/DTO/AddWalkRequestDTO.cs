@@ -1,7 +1,11 @@
-﻿namespace WalkApp.Models.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WalkApp.Models.DTO
 {
     public class AddWalkRequestDTO
     {
+        [Required]
+        [MaxLength(100)]
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public double Length { get; set; }
