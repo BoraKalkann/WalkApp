@@ -23,17 +23,19 @@ namespace WalkApp.Controllers
         [ValidateModel]
         public async Task<IActionResult> AddAWalk([FromBody] AddWalkRequestDTO addWalkRequestDTO)
         {
-            
-                var walkDomainModel = _mapper.Map<AddWalkRequestDTO, Walk>(addWalkRequestDTO);
-                await _walkRepo.CreateAsync(walkDomainModel);
-                return Ok(_mapper.Map<Walk, WalkDTO>(walkDomainModel));
-            
+
+            var walkDomainModel = _mapper.Map<AddWalkRequestDTO, Walk>(addWalkRequestDTO);
+            await _walkRepo.CreateAsync(walkDomainModel);
+            return Ok(_mapper.Map<Walk, WalkDTO>(walkDomainModel));
+
 
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllWalks()
+        public async Task<IActionResult> GetAllWalks([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
+            [FromQuery] string? sortBy, [FromQuery] bool isAscending = true,
+            [FromQuery] int pageSize= 50, [FromQuery] int pageNumber = 1)
         {
-            var walkDomainModels = await _walkRepo.GetAllWalksAsync();
+            var walkDomainModels = await _walkRepo.GetAllWalksAsync(filterOn,filterQuery,sortBy,isAscending,pageSize,pageNumber);
             return Ok(_mapper.Map<List<Walk>, List<WalkDTO>>(walkDomainModels));
         }
         [HttpGet("{id:guid}")]
